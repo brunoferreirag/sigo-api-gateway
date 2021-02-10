@@ -1,0 +1,12 @@
+name: sigo-api-gateway
+image: docker.io/brunoferreirag/sigo-api-gateway:latest
+sync:
+- .:/workspace/app/
+persistentVolume:
+  enabled: false
+forward:
+- 8001:8001
+resources:
+  limits:
+    cpu: "0.2"
+    memory: 0.25Gi

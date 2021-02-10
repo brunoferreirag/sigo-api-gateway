@@ -8,10 +8,10 @@ CREATE TABLE funcao_seguranca (
 
 CREATE TABLE usuario_seguranca (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  username varchar(255) NOT NULL,
-  password varchar(255) NOT NULL,
-  primeiro_nome varchar(255) NOT NULL,
-  ultimo_nome varchar(255) NOT NULL
+  username varchar(30) NOT NULL,
+  password varchar(200) NOT NULL,
+  primeiro_nome varchar(50) NOT NULL,
+  ultimo_nome varchar(50) NOT NULL
 );
 
 

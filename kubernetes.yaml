@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sigo-api-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sigo-api-gateway
+  template:
+    metadata:
+      labels:
+        app: sigo-api-gateway
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: sigo-api-gateway
+        image: docker.io/brunoferreirag/sigo-api-gateway:latest
+        ports:
+        - containerPort: 8001
+          name: sigo-gateway
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "10m"
+          limits:
+            memory: "512Mi"
+            cpu: "256m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sigo-api-gateway
+spec:
+  selector:
+    app: sigo-api-gateway
+  ports:
+    - protocol: TCP
+      port: 8001
+      targetPort: 8001
+      name: tcp-8001
+---

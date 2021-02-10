@@ -1,12 +1,12 @@
 FROM openjdk:13-jdk-alpine as build
 WORKDIR /workspace/app
 
-EXPOSE 8001
-
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
+
+EXPOSE 8001
 
 RUN ./mvnw install -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
@@ -17,5 +17,5 @@ ARG DEPENDENCY=/workspace/app/target/dependency
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-
+ENV JAVA_TOOL_OPTIONS "-Xms256m -Xmx512m"
 ENTRYPOINT ["java","-cp","app:app/lib/*","br.com.indtextbr.services.apigateway.SigoApiGatewayApplication"]

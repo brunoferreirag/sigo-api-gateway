@@ -12,11 +12,6 @@ import javax.persistence.*;
 
 import java.util.List;
 
-/**
- * Security User Entity.
- *
- * Created by Mary Ellen Bowman
- */
 @Entity
 @Table(name = "usuario_seguranca")
 @Getter
