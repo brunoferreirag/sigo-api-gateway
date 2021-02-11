@@ -31,13 +31,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sigo-api-gateway
+  name: sigo-gateway
 spec:
+  type: LoadBalancer 
+  ports:
+    - name: sigo-gateway
+      protocol: TCP
+      port: 8001
   selector:
     app: sigo-api-gateway
-  ports:
-    - protocol: TCP
-      port: 8001
-      targetPort: 8001
-      name: tcp-8001
+    
 ---
