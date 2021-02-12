@@ -32,7 +32,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: sigo-gateway
-annotations:
+  annotations:
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
     nginx.ingress.kubernetes.io/cors-allow-origin: "*" 
