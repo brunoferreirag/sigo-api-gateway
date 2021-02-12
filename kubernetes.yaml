@@ -36,6 +36,7 @@ metadata:
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, DELETE,POST, OPTIONS"
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    dev.okteto.com/auto-ingress: "true"
 spec:
   type: LoadBalancer 
   ports:
