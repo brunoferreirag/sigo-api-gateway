@@ -40,5 +40,8 @@ spec:
       port: 8001
   selector:
     app: sigo-api-gateway
-    
+  annotations:
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*" 
 ---
