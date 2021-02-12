@@ -51,7 +51,7 @@ metadata:
     nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST,DELETE,OPTIONS"
     nginx.ingress.kubernetes.io/cors-allow-origin: "*"
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
-    nginx.ingress.kubernetes.io/cors-allow-headers: "authorization"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "authorization,content-type"
   name: sigo-gateway
 spec:
   rules:
