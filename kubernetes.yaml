@@ -33,7 +33,6 @@ kind: Service
 metadata:
   name: sigo-gateway
   annotations:
-    dev.okteto.com/auto-ingress: "true"
     nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:8100"
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
     nginx.ingress.kubernetes.io/cors-allow-headers: "authorization"
