@@ -34,6 +34,7 @@ metadata:
   name: sigo-gateway
   annotations:
     dev.okteto.com/auto-ingress: "true"
+    dev.okteto.com/generate-host: "true"
     nginx.ingress.kubernetes.io/cors-allow-origin: "*"
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
     nginx.ingress.kubernetes.io/cors-allow-headers: "authorization"
