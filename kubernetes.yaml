@@ -57,17 +57,14 @@ spec:
   - http:
       paths:
         - path: /api/usuarios/*
-          pathType: Prefix
           backend:
             serviceName: api-gateway
             servicePort: 8001
         - path: /api/logistica/*
-          pathType: Prefix
           backend:
             serviceName: sigo-api-logistica
             servicePort: 8003
         - path: /api/gestao-norma-industrial/*
-          pathType: Prefix
           backend:
             serviceName: sigo-api-logistica
             servicePort: 8006  
