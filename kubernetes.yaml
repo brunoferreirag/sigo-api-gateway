@@ -40,32 +40,4 @@ spec:
   selector:
     app: sigo-api-gateway
 ---
----
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  annotations:
-    dev.okteto.com/generate-host: "true"
-    nginx.ingress.kubernetes.io/enable-cors: "true"
-    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST,DELETE,OPTIONS"
-    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
-    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
-    nginx.ingress.kubernetes.io/cors-allow-headers: "authorization,content-type,pragma,expires,cache-control"
-  name: sigo-gateway
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /api/usuarios
-          backend:
-            serviceName: api-gateway
-            servicePort: 8001
-        - path: /api/logistica
-          backend:
-            serviceName: sigo-api-logistica
-            servicePort: 8003
-        - path: /api/gestao-norma-industrial
-          backend:
-            serviceName: sigo-api-logistica
-            servicePort: 8006  
----
+
