@@ -56,6 +56,10 @@ spec:
   rules:
   - http:
       paths:
+        - path: /api/gestao-norma-industrial/*
+          backend:
+            serviceName: sigo-api-logistica
+            servicePort: 8006  
         - path: /
           backend:
             serviceName: sigo-gateway
