@@ -66,6 +66,6 @@ spec:
             servicePort: 8003
         - path: /api/gestao-norma-industrial
           backend:
-            serviceName: sigo-api-logistica
+            serviceName: sigo-api-gestao-normas-industriais
             servicePort: 8006  
 ---
