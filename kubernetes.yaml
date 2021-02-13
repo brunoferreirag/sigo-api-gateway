@@ -56,7 +56,7 @@ spec:
   rules:
   - http:
       paths:
-        - path: /
+        - path: /api/usuarios/*
           backend:
             serviceName: sigo-gateway
             servicePort: 8001
