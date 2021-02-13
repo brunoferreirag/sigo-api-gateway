@@ -53,6 +53,11 @@ metadata:
     nginx.ingress.kubernetes.io/cors-allow-headers: "authorization,content-type,pragma,expires,cache-control"
   name: sigo-gateway
 spec:
+  defaultBackend:
+    service:
+      name: sigo-gateway
+      port:
+        number: 8001
   rules:
   - http:
       paths:
@@ -60,8 +65,4 @@ spec:
           backend:
             serviceName: sigo-api-gestao-normas-industriais
             servicePort: 8006  
-        - path: /api/usuarios
-          backend:
-            serviceName: sigo-gateway
-            servicePort: 8001
 ---
