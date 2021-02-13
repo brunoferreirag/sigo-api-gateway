@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sigo-gateway
+  name: sigo-api-gateway
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sigo-gateway
+      app: sigo-api-gateway
   template:
     metadata:
       labels:
-        app: sigo-gateway
+        app: sigo-api-gateway
     spec:
       nodeSelector:
         "beta.kubernetes.io/os": linux
       containers:
-      - name: sigo-gateway
+      - name: sigo-api-gateway
         image: docker.io/brunoferreirag/sigo-api-gateway:latest
         ports:
         - containerPort: 8001
@@ -38,7 +38,7 @@ spec:
       protocol: TCP
       port: 8001
   selector:
-    app: sigo-gateway
+    app: sigo-api-gateway
 ---
 ---
 apiVersion: networking.k8s.io/v1beta1
@@ -53,16 +53,19 @@ metadata:
     nginx.ingress.kubernetes.io/cors-allow-headers: "authorization,content-type,pragma,expires,cache-control"
   name: sigo-gateway
 spec:
-  defaultBackend:
-    service:
-      name: sigo-gateway
-      port:
-        number: 8001
   rules:
   - http:
       paths:
-        - path: /api/gestao-norma-industrial/norma-industrial/busca
+        - path: /api/usuarios
           backend:
-            serviceName: sigo-api-gestao-normas-industriais
+            serviceName: sigo-gateway
+            servicePort: 8001
+        - path: /api/logistica
+          backend:
+            serviceName: sigo-api-logistica
+            servicePort: 8003
+        - path: /api/gestao-norma-industrial
+          backend:
+            serviceName: sigo-api-logistica
             servicePort: 8006  
 ---
