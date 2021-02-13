@@ -56,7 +56,7 @@ spec:
   rules:
   - http:
       paths:
-        - path: /api/gestao-norma-industrial/norma-industrial/*
+        - path: /api/gestao-norma-industrial/norma-industrial/busca
           backend:
             serviceName: sigo-api-gestao-normas-industriais
             servicePort: 8006  
