@@ -57,7 +57,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /usuarios
+      - path: /
           backend:
             serviceName: api-gateway
             servicePort: 8001
