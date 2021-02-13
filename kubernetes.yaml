@@ -23,10 +23,10 @@ spec:
         resources:
           requests:
             memory: "256Mi"
-            cpu: "10m"
+            cpu: "256m"
           limits:
             memory: "512Mi"
-            cpu: "256m"
+            cpu: "512m"
 ---
 apiVersion: v1
 kind: Service
@@ -57,8 +57,17 @@ spec:
   rules:
   - http:
       paths:
-      - backend:
+      - path:/api/usuarios
+        backend:
           serviceName: sigo-gateway
           servicePort: 8001
-        path: /
+      - path:/api/logistica
+        backend:
+          serviceName: sigo-api-logistica
+          servicePort: 8003
+      - path:/api/gestao-norma-industrial
+        backend:
+          serviceName: sigo-api-gestao-normas-industriais
+          servicePort: 8006
+        
 ---
