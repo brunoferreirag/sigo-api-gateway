@@ -38,7 +38,7 @@ spec:
       protocol: TCP
       port: 8001
   selector:
-    app: sigo-api-gateway
+    app: sigo-gateway
 ---
 ---
 apiVersion: networking.k8s.io/v1beta1
@@ -58,6 +58,6 @@ spec:
       paths:
         - path: /
           backend:
-            serviceName: api-gateway
+            serviceName: sigo-gateway
             servicePort: 8001
 ---
