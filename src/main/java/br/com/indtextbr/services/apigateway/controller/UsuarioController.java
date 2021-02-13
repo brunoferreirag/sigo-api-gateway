@@ -34,7 +34,7 @@ import br.com.indtextbr.services.apigateway.service.UsuarioService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("sigo/api/v1/usuarios")
+@RequestMapping("api/usuarios")
 public class UsuarioController {
 
 	private UsuarioService usuarioService;
