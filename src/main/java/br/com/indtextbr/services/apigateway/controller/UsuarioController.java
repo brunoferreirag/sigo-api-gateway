@@ -48,7 +48,7 @@ public class UsuarioController {
 	}
 
 	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid UsuarioDTO loginDto) {
+	public ResponseEntity<LoginResponseDTO> login(@RequestBody UsuarioDTO loginDto) {
 		var loginResponseDTO = usuarioService.login(loginDto.getUsername(), loginDto.getPassword())
 				.orElseThrow(() -> new HttpServerErrorException(HttpStatus.UNAUTHORIZED, "Falha ao realizar o login"));
 		return ResponseEntity.ok(loginResponseDTO);
