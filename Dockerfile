@@ -7,7 +7,7 @@ COPY pom.xml .
 COPY src src
 
 EXPOSE 8001
-
+RUN ["chmod", "u+x", "mvnw"]
 RUN ./mvnw install -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
