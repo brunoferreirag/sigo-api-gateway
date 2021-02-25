@@ -51,9 +51,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         .exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
         .and();
 
-		http.addFilterAfter(new JwtTokenFilter(userDetailsService), UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(new JwtTokenFilter(userDetailsService), UsernamePasswordAuthenticationFilter.class);
 		
-		http.authorizeRequests().antMatchers(URL_USUARIOS + "/login/**").permitAll()
+		http.authorizeRequests()
+	             .antMatchers(URL_USUARIOS + "/login").anonymous()
 		         .antMatchers(HttpMethod.GET, URL_USUARIOS).hasAuthority("ROLE_ADMIN_SIGO")
 		         .antMatchers(HttpMethod.OPTIONS, URL_USUARIOS).hasAuthority("ROLE_ADMIN_SIGO")
 		         .antMatchers(HttpMethod.POST, URL_USUARIOS).hasAuthority("ROLE_ADMIN_SIGO")
@@ -81,10 +82,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		         .antMatchers(HttpMethod.PUT,URL_NORMA_INDUSTRIAL_UNICO).hasAuthority(ROLE_GNI)
 		         .antMatchers(HttpMethod.OPTIONS,URL_NORMA_INDUSTRIAL_UNICO).hasAuthority(ROLE_GNI)
 		         .antMatchers(HttpMethod.DELETE,URL_NORMA_INDUSTRIAL_UNICO).hasAuthority(ROLE_GNI)
-		         .antMatchers(HttpMethod.OPTIONS,URL_NORMA_INDUSTRIAL_UNICO).hasAuthority(ROLE_GNI)  
-		         .antMatchers("**")
-				.authenticated();
-		
+		         .antMatchers(HttpMethod.OPTIONS,URL_NORMA_INDUSTRIAL_UNICO).hasAuthority(ROLE_GNI)
+		         .anyRequest().denyAll();
 	}
 	
 	 @Bean
