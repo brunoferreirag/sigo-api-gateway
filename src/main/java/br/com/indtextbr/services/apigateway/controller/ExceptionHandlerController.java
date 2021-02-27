@@ -37,6 +37,6 @@ public class ExceptionHandlerController {
     public ResponseEntity<List<ErroDTO>> handlerConnectException(ConnectException ex) {
         log.error("internal server error", ex);
         List<ErroDTO> erros = Collections.singletonList(new ErroDTO("Sistema temporariamente indisponível"));
-        return new ResponseEntity<>(erros, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(erros, HttpStatus.GATEWAY_TIMEOUT);
     }
 }
