@@ -1,5 +1,6 @@
 package br.com.indtextbr.services.apigateway.controller;
 
+import java.net.ConnectException;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,6 +29,14 @@ public class ExceptionHandlerController {
     public ResponseEntity<List<ErroDTO>> handlerInternalServerErrorException(RuntimeException ex) {
         log.error("internal server error", ex);
         List<ErroDTO> erros = Collections.singletonList(new ErroDTO("Erro interno no servidor"));
+        return new ResponseEntity<>(erros, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+	
+
+	@ExceptionHandler(ConnectException.class)
+    public ResponseEntity<List<ErroDTO>> handlerConnectException(ConnectException ex) {
+        log.error("internal server error", ex);
+        List<ErroDTO> erros = Collections.singletonList(new ErroDTO("Sistema temporariamente indisponível"));
         return new ResponseEntity<>(erros, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
