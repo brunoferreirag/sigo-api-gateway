@@ -1,8 +1,5 @@
 FROM openjdk:15-jdk-slim as build
 
-RUN addgroup sigogroup && adduser  --ingroup sigogroup --disabled-password sigo
-USER sigo
-
 WORKDIR application
 
 COPY mvnw .
