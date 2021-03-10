@@ -1,21 +1,30 @@
-FROM openjdk:13-jdk-alpine as build
-WORKDIR /workspace/app
+# syntax = docker/dockerfile:experimental
+FROM openjdk:15-jdk-slim as build
+
+RUN addgroup sigo adduser  --ingroup sigo-user --disabled-password sigo
+USER demo
+
+WORKDIR application
 
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
-
-EXPOSE 8001
 RUN ["chmod", "u+x", "mvnw"]
+
+RUN --mount=type=cache,target=/root/.m2 ./mvnw install -DskipTests
+
+RUN cp /application/target/*.jar app.jar
+RUN java -Djarmode=layertools -jar app.jar extract
 RUN ./mvnw install -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
-FROM openjdk:13-jdk-alpine
-VOLUME /tmp
-ARG DEPENDENCY=/workspace/app/target/dependency
-COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
-COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
+FROM openjdk:15-jdk-slim
+WORKDIR application
+COPY --from=bulid application/dependencies/ ./
+COPY --from=bulid application/spring-boot-loader/ ./
+COPY --from=bulid application/snapshot-dependencies/ ./
+COPY --from=bulid application/application/ ./
+EXPOSE 8001
 ENV JAVA_TOOL_OPTIONS "-Xms256m -Xmx512m"
-ENTRYPOINT ["java","-cp","app:app/lib/*","br.com.indtextbr.services.apigateway.SigoApiGatewayApplication"]
+ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
