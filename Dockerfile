@@ -1,12 +1,14 @@
 FROM openjdk:15-jdk-slim as build
 
+RUN addgroup sigogroup && adduser  --ingroup sigogroup --disabled-password sigo
+USER sigo
+
 WORKDIR application
 
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
-RUN ["chmod", "u+x", "mvnw"]
 
 RUN ./mvnw install -DskipTests
 
