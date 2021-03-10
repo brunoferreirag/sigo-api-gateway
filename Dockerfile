@@ -1,4 +1,3 @@
-# syntax = docker/dockerfile:experimental
 FROM openjdk:15-jdk-slim as build
 
 RUN addgroup sigo adduser  --ingroup sigo-user --disabled-password sigo
@@ -12,7 +11,7 @@ COPY pom.xml .
 COPY src src
 RUN ["chmod", "u+x", "mvnw"]
 
-RUN --mount=type=cache,target=/root/.m2 ./mvnw install -DskipTests
+RUN ./mvnw install -DskipTests
 
 RUN cp /application/target/*.jar app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
