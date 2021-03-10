@@ -17,10 +17,10 @@ RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 FROM openjdk:15-jdk-slim
 WORKDIR application
-COPY --from=bulid application/dependencies/ ./
-COPY --from=bulid application/spring-boot-loader/ ./
-COPY --from=bulid application/snapshot-dependencies/ ./
-COPY --from=bulid application/application/ ./
+COPY --from=build application/dependencies/ ./
+COPY --from=build application/spring-boot-loader/ ./
+COPY --from=build application/snapshot-dependencies/ ./
+COPY --from=build application/application/ ./
 EXPOSE 8001
 ENV JAVA_TOOL_OPTIONS "-Xms256m -Xmx512m"
 ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
