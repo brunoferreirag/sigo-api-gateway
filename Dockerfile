@@ -1,7 +1,7 @@
 FROM openjdk:15-jdk-slim as build
 
 RUN addgroup sigo adduser  --ingroup sigo --disabled-password sigo
-USER demo
+USER sigo
 
 WORKDIR application
 
