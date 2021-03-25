@@ -30,15 +30,19 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private static final String URL_USUARIOS = "/api/usuarios";
 	private static final String URL_USUARIOS_DELETE = URL_USUARIOS.concat("/{username}");
 
-	private static final String URL_ARMAZENS = "/api/logistica/armazens";
-	private static final String URL_ARMAZENS_UNICO = URL_ARMAZENS.concat("/{id}");
+	private static final String URL_PARADA_PRODUCAO = "/api/erp/parada-producao";
+	private static final String URL_PARADA_PRODUCAO_UNICO = URL_PARADA_PRODUCAO.concat("/{id}");
 
+	private static final String URL_STATUS_PRODUCAO = "/api/erp/status-producao";
+	
 	private static final String URL_NORMA_INDUSTRIAL = "/api/gestao-norma-industrial/norma-industrial";
 	private static final String URL_NORMA_INDUSTRIAL_UNICO = URL_NORMA_INDUSTRIAL.concat("/{id}");
 	private static final String URL_NORMA_INDUSTRIAL_BUSCA = URL_NORMA_INDUSTRIAL.concat("/busca");
 
-	private static final String ROLE_GPI = "ROLE_SIGO_GPI";
+	private static final String ROLE_GPI_PP = "ROLE_SIGO_GPI_PP";
+	private static final String ROLE_GPI_SP = "ROLE_SIGO_GPI_SP";
 	private static final String ROLE_GNI = "ROLE_SIGO_GN";
+	private static final String ROLE_ADMIN_SIGO= "ROLE_ADMIN_SIGO";
 	@Autowired
 	private DetalheUsuarioService userDetailsService;
 
@@ -52,24 +56,26 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.cors()
 				.and().authorizeRequests().antMatchers(HttpMethod.POST, URL_USUARIOS + "/login").permitAll()
 				.antMatchers(HttpMethod.OPTIONS, URL_USUARIOS + "/login").permitAll()
-				.antMatchers(HttpMethod.GET, URL_USUARIOS).hasAuthority("ROLE_ADMIN_SIGO")
-				.antMatchers(HttpMethod.OPTIONS, URL_USUARIOS).hasAuthority("ROLE_ADMIN_SIGO")
-				.antMatchers(HttpMethod.POST, URL_USUARIOS).hasAuthority("ROLE_ADMIN_SIGO")
-				.antMatchers(HttpMethod.OPTIONS, URL_USUARIOS).hasAuthority("ROLE_ADMIN_SIGO")
-				.antMatchers(HttpMethod.PUT, URL_USUARIOS).hasAuthority("ROLE_ADMIN_SIGO")
-				.antMatchers(HttpMethod.OPTIONS, URL_USUARIOS).hasAuthority("ROLE_ADMIN_SIGO")
-				.antMatchers(HttpMethod.DELETE, URL_USUARIOS_DELETE).hasAuthority("ROLE_ADMIN_SIGO")
-				.antMatchers(HttpMethod.OPTIONS, URL_USUARIOS_DELETE).hasAuthority("ROLE_ADMIN_SIGO")
-				.antMatchers(HttpMethod.GET, URL_ARMAZENS).hasAuthority(ROLE_GPI)
-				.antMatchers(HttpMethod.OPTIONS, URL_ARMAZENS).hasAuthority(ROLE_GPI)
-				.antMatchers(HttpMethod.POST, URL_ARMAZENS).hasAuthority(ROLE_GPI)
-				.antMatchers(HttpMethod.OPTIONS, URL_ARMAZENS).hasAuthority(ROLE_GPI)
-				.antMatchers(HttpMethod.GET, URL_ARMAZENS_UNICO).hasAuthority(ROLE_GPI)
-				.antMatchers(HttpMethod.OPTIONS, URL_ARMAZENS_UNICO).hasAuthority(ROLE_GPI)
-				.antMatchers(HttpMethod.PUT, URL_ARMAZENS_UNICO).hasAuthority(ROLE_GPI)
-				.antMatchers(HttpMethod.OPTIONS, URL_ARMAZENS_UNICO).hasAuthority(ROLE_GPI)
-				.antMatchers(HttpMethod.DELETE, URL_ARMAZENS_UNICO).hasAuthority(ROLE_GPI)
-				.antMatchers(HttpMethod.OPTIONS, URL_ARMAZENS_UNICO).hasAuthority(ROLE_GPI)
+				.antMatchers(HttpMethod.GET, URL_USUARIOS).hasAuthority(ROLE_ADMIN_SIGO)
+				.antMatchers(HttpMethod.OPTIONS, URL_USUARIOS).hasAuthority(ROLE_ADMIN_SIGO)
+				.antMatchers(HttpMethod.POST, URL_USUARIOS).hasAuthority(ROLE_ADMIN_SIGO)
+				.antMatchers(HttpMethod.OPTIONS, URL_USUARIOS).hasAuthority(ROLE_ADMIN_SIGO)
+				.antMatchers(HttpMethod.PUT, URL_USUARIOS).hasAuthority(ROLE_ADMIN_SIGO)
+				.antMatchers(HttpMethod.OPTIONS, URL_USUARIOS).hasAuthority(ROLE_ADMIN_SIGO)
+				.antMatchers(HttpMethod.DELETE, URL_USUARIOS_DELETE).hasAuthority(ROLE_ADMIN_SIGO)
+				.antMatchers(HttpMethod.OPTIONS, URL_USUARIOS_DELETE).hasAuthority(ROLE_ADMIN_SIGO)
+				.antMatchers(HttpMethod.GET, URL_PARADA_PRODUCAO).hasAuthority(ROLE_GPI_PP)
+				.antMatchers(HttpMethod.OPTIONS, URL_PARADA_PRODUCAO).hasAuthority(ROLE_GPI_PP)
+				.antMatchers(HttpMethod.GET, URL_STATUS_PRODUCAO).hasAuthority(ROLE_GPI_SP)
+				.antMatchers(HttpMethod.OPTIONS, URL_STATUS_PRODUCAO).hasAuthority(ROLE_GPI_SP)
+				.antMatchers(HttpMethod.POST, URL_PARADA_PRODUCAO).hasAuthority(ROLE_GPI_PP)
+				.antMatchers(HttpMethod.OPTIONS, URL_PARADA_PRODUCAO).hasAuthority(ROLE_GPI_PP)
+				.antMatchers(HttpMethod.GET, URL_PARADA_PRODUCAO_UNICO).hasAuthority(ROLE_GPI_PP)
+				.antMatchers(HttpMethod.OPTIONS, URL_PARADA_PRODUCAO_UNICO).hasAuthority(ROLE_GPI_PP)
+				.antMatchers(HttpMethod.PUT, URL_PARADA_PRODUCAO_UNICO).hasAuthority(ROLE_GPI_PP)
+				.antMatchers(HttpMethod.OPTIONS, URL_PARADA_PRODUCAO_UNICO).hasAuthority(ROLE_GPI_PP)
+				.antMatchers(HttpMethod.DELETE, URL_PARADA_PRODUCAO_UNICO).hasAuthority(ROLE_GPI_PP)
+				.antMatchers(HttpMethod.OPTIONS, URL_PARADA_PRODUCAO_UNICO).hasAuthority(ROLE_GPI_PP)
 				.antMatchers(HttpMethod.GET, URL_NORMA_INDUSTRIAL).hasAuthority(ROLE_GNI)
 				.antMatchers(HttpMethod.OPTIONS, URL_NORMA_INDUSTRIAL).hasAuthority(ROLE_GNI)
 				.antMatchers(HttpMethod.GET, URL_NORMA_INDUSTRIAL_BUSCA).hasAuthority(ROLE_GNI)
