@@ -31,6 +31,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private static final String URL_USUARIOS_DELETE = URL_USUARIOS.concat("/{username}");
 
 	private static final String URL_PARADA_PRODUCAO = "/api/erp/parada-producao";
+	private static final String URL_LINHA_PRODUCAO = "/api/erp/linha-producao";
+	private static final String URL_TURNO_PRODUCAO = "/api/erp/turno";
 	private static final String URL_PARADA_PRODUCAO_UNICO = URL_PARADA_PRODUCAO.concat("/{id}");
 
 	private static final String URL_STATUS_PRODUCAO = "/api/erp/status-producao";
@@ -71,6 +73,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, URL_PARADA_PRODUCAO).hasAuthority(ROLE_GPI_PP)
 				.antMatchers(HttpMethod.OPTIONS, URL_PARADA_PRODUCAO).hasAuthority(ROLE_GPI_PP)
 				.antMatchers(HttpMethod.GET, URL_PARADA_PRODUCAO_UNICO).hasAuthority(ROLE_GPI_PP)
+				.antMatchers(HttpMethod.OPTIONS, URL_LINHA_PRODUCAO).hasAuthority(ROLE_GPI_PP)
+				.antMatchers(HttpMethod.GET, URL_LINHA_PRODUCAO).hasAuthority(ROLE_GPI_PP)
+				.antMatchers(HttpMethod.OPTIONS, URL_TURNO_PRODUCAO).hasAuthority(ROLE_GPI_PP)
+				.antMatchers(HttpMethod.GET, URL_TURNO_PRODUCAO).hasAuthority(ROLE_GPI_PP)
 				.antMatchers(HttpMethod.OPTIONS, URL_PARADA_PRODUCAO_UNICO).hasAuthority(ROLE_GPI_PP)
 				.antMatchers(HttpMethod.PUT, URL_PARADA_PRODUCAO_UNICO).hasAuthority(ROLE_GPI_PP)
 				.antMatchers(HttpMethod.OPTIONS, URL_PARADA_PRODUCAO_UNICO).hasAuthority(ROLE_GPI_PP)
