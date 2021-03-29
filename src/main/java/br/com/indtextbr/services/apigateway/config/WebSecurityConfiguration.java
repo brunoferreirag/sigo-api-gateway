@@ -31,6 +31,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private static final String URL_USUARIOS_DELETE = URL_USUARIOS.concat("/{username}");
 
 	private static final String URL_PARADA_PRODUCAO = "/api/erp/parada-producao";
+	private static final String URL_STATUS_FASE_PRODUCAO = "/api/erp/status-producao";
 	private static final String URL_LINHA_PRODUCAO = "/api/erp/linha-producao";
 	private static final String URL_TURNO_PRODUCAO = "/api/erp/turno";
 	private static final String URL_PARADA_PRODUCAO_UNICO = URL_PARADA_PRODUCAO.concat("/{id}");
@@ -52,6 +53,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.csrf().disable();
+		http.addFilterAfter(new JwtTokenFilter(userDetailsService), UsernamePasswordAuthenticationFilter.class);
+		
 
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().exceptionHandling()
 				.authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED)).and()
@@ -91,10 +94,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.PUT, URL_NORMA_INDUSTRIAL_UNICO).hasAuthority(ROLE_GNI)
 				.antMatchers(HttpMethod.OPTIONS, URL_NORMA_INDUSTRIAL_UNICO).hasAuthority(ROLE_GNI)
 				.antMatchers(HttpMethod.DELETE, URL_NORMA_INDUSTRIAL_UNICO).hasAuthority(ROLE_GNI)
-				.antMatchers(HttpMethod.OPTIONS, URL_NORMA_INDUSTRIAL_UNICO).hasAuthority(ROLE_GNI).anyRequest()
+				.antMatchers(HttpMethod.OPTIONS, URL_NORMA_INDUSTRIAL_UNICO).hasAuthority(ROLE_GNI).antMatchers("**")
 				.authenticated();
 		
-		http.addFilterAfter(new JwtTokenFilter(userDetailsService), UsernamePasswordAuthenticationFilter.class);
 
 	}
 
